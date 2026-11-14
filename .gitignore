@@ -2,3 +2,9 @@
 .obsidian/cache
 .trash/
 .DS_Store
+
+# DevBrain
+devbrain/.env
+devbrain/.qdrant/
+.venv/
+__pycache__/
