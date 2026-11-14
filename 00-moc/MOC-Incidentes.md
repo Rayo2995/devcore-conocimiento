@@ -18,6 +18,7 @@ Volver a [[00-MOC-DevCore]]
 ## Post-mortems
 
 - [[2026-10-incidente-cola-notificaciones]]: corrupción de la cola tras aplicar una solución de 2022.
+- [[2026-11-14-incidente-prueba-notificaciones]]: borrador generado por DevBrain, pendiente de revisión.
 
 ## Índice
 
