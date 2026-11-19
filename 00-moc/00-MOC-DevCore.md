@@ -27,6 +27,10 @@ Punto de entrada del vault. Desde aquí se llega a cada área de conocimiento.
 - [[MOC-GAD]]: formatos de Gestión Administrativa y Documental.
 - [[MOC-GCO]]: procedimientos y formatos de Gestión Contractual.
 - [[MOC-TH]]: formatos de Talento Humano.
+- [[MOC-AUD]]: Auditorías Especiales
+- [[MOC-INS]]: Instrucción Disciplinaria
+- [[MOC-PGR]]: Prevención y Gestión del Riesgo
+- [[MOC-TIC]]: Gestión TIC y Seguridad de la Información
 
 ## Documentos de gestión
 
