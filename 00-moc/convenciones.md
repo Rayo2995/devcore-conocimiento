@@ -18,6 +18,7 @@ relacionados: ["[[00-MOC-DevCore]]", "[[como-usar-los-MOC]]"]
 - Minúsculas, sin tildes, separadas por guiones: `servicio-notificaciones.md`.
 - ADR: `ADR-NNNN-titulo-corto.md`, con número consecutivo.
 - Post-mortem: `AAAA-MM-incidente-slug.md`.
+- Formato: `codigo-en-minusculas-titulo-corto.md`, por ejemplo `gad-ft-003-acta-informe-de-siniestro.md`. El archivo original (Word, Excel, PDF) va en la subcarpeta `archivos/` del proceso, con su nombre oficial.
 - Cada nombre de archivo es único en todo el vault, para que los enlaces `[[nombre]]` no sean ambiguos.
 
 ## Metadatos obligatorios
@@ -26,7 +27,7 @@ Todo documento empieza con un bloque YAML entre `---`. Campos:
 
 | Campo | Descripción |
 |---|---|
-| `tipo` | `moc`, `guia`, `adr`, `postmortem`, `indice`, `servicio`, `runbook`, `transferencia` |
+| `tipo` | `moc`, `guia`, `adr`, `postmortem`, `indice`, `servicio`, `runbook`, `transferencia`, `formato` |
 | `id` | Identificador corto, por ejemplo `ADR-0001` |
 | `titulo` | Título legible |
 | `estado` | `borrador`, `propuesta`, `aceptada`, `vigente`, `reemplazada` |

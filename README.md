@@ -14,6 +14,7 @@ devcore-conocimiento/
 ├── 03-incidentes/       Post-mortems e índice de errores recurrentes
 ├── 04-servicios/        Un subdirectorio por servicio: documento, runbook y src/
 ├── 05-plantillas/       Plantillas de Obsidian (ADR, post-mortem, runbook, MOC)
+├── 06-formatos/         Formatos y documentos oficiales, una carpeta por proceso
 ├── adjuntos/            Imágenes y diagramas
 ├── .obsidian/           Configuración compartida del vault
 └── .github/workflows/   Validación automática en CI
