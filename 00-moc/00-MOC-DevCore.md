@@ -8,7 +8,7 @@ ultima_revision: 2026-10-22
 responsable: por definir
 servicios: [todos]
 etiquetas: [moc, punto-de-entrada]
-relacionados: ["[[MOC-Onboarding]]", "[[MOC-Arquitectura]]", "[[MOC-Incidentes]]", "[[MOC-Servicios]]", "[[MOC-GAD]]"]
+relacionados: ["[[MOC-Onboarding]]", "[[MOC-Arquitectura]]", "[[MOC-Incidentes]]", "[[MOC-Servicios]]", "[[MOC-GAD]]", "[[MOC-GCO]]", "[[MOC-TH]]"]
 ---
 
 # DevCore: Segundo Cerebro de ingeniería
@@ -25,6 +25,8 @@ Punto de entrada del vault. Desde aquí se llega a cada área de conocimiento.
 ## Formatos y documentos por proceso
 
 - [[MOC-GAD]]: formatos de Gestión Administrativa y Documental.
+- [[MOC-GCO]]: procedimientos y formatos de Gestión Contractual.
+- [[MOC-TH]]: formatos de Talento Humano.
 
 ## Documentos de gestión
 
