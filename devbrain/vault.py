@@ -4,7 +4,7 @@ import uuid
 from pathlib import Path
 
 EXCLUIDAS = {".obsidian", ".github", ".git", ".trash", "adjuntos", "05-plantillas",
-             "devbrain", "scripts", "src"}
+             "devbrain", "scripts", "src", ".venv", "venv", "node_modules", "site-packages"}
 MAX_CHUNK = 1500
 
 
@@ -48,7 +48,7 @@ def leer_documentos(vault: Path):
     docs = []
     for ruta in sorted(vault.rglob("*.md")):
         rel = ruta.relative_to(vault)
-        if any(p in EXCLUIDAS for p in rel.parts):
+        if any(p in EXCLUIDAS or p.startswith(".") for p in rel.parts):
             continue
         meta, cuerpo = parse_frontmatter(ruta.read_text(encoding="utf-8", errors="ignore"))
         docs.append({"ruta": rel.as_posix(), "meta": meta, "cuerpo": cuerpo})
