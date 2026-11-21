@@ -21,10 +21,13 @@ VERSION_INDICE = "3"
 
 
 def commit_actual():
+    """Identifica el índice: commit de la bóveda + versión del código + modelo de embeddings.
+    Si cualquiera cambia (por ejemplo, otro EMBED_MODEL en .env), el bot reindexa al arrancar."""
+    version = f"{VERSION_INDICE}:{config.EMBED_MODEL}"
     try:
-        return f"{_git('rev-parse', 'HEAD')}:{VERSION_INDICE}"
+        return f"{_git('rev-parse', 'HEAD')}:{version}"
     except (subprocess.CalledProcessError, FileNotFoundError):
-        return f"sin-git:{VERSION_INDICE}"
+        return f"sin-git:{version}"
 
 
 def sincronizar():

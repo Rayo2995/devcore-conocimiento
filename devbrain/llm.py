@@ -5,8 +5,11 @@ from . import config
 
 
 def embed(textos, tipo="documento"):
-    # nomic-embed-text rinde mejor con estos prefijos.
-    prefijo = "search_query: " if tipo == "consulta" else "search_document: "
+    # nomic-embed-text rinde mejor con estos prefijos; otros modelos (bge-m3) no los usan.
+    if "nomic" in config.EMBED_MODEL:
+        prefijo = "search_query: " if tipo == "consulta" else "search_document: "
+    else:
+        prefijo = ""
     vectores = []
     for i in range(0, len(textos), 16):
         lote = [prefijo + t for t in textos[i:i + 16]]
