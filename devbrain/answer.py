@@ -513,6 +513,19 @@ def _desenvolver(texto):
     return re.sub(r"(?m)^(\s*)[-*+]\s{2,}", r"\1- ", texto)
 
 
+def nombres_de_notas():
+    """[[nombre-de-archivo]] -> "CÓDIGO · Título", para mostrar enlaces legibles en Slack."""
+    nombres = {}
+    for doc in vault.leer_documentos(config.VAULT_PATH):
+        meta = doc["meta"]
+        titulo = meta.get("titulo")
+        if not titulo:
+            continue
+        clave = _normal(doc["ruta"].rsplit("/", 1)[-1][:-3])
+        nombres[clave] = f"*{meta['id']} · {titulo}*" if meta.get("id") else f"*{titulo}*"
+    return nombres
+
+
 def a_slack(texto):
     """Markdown de Obsidian -> formato de Slack: tablas a viñetas, [[enlaces]] y **negritas**."""
     texto = _desenvolver(texto)
@@ -539,7 +552,9 @@ def a_slack(texto):
             salida.append(f"• *{celdas[0]}* — {resto}")
     texto = "\n".join(salida)
     texto = re.sub(r"\[\[([^\]|]+)\|([^\]]+)\]\]", r"\2", texto)
-    texto = re.sub(r"\[\[([^\]]+)\]\]", r"`\1`", texto)
+    nombres = nombres_de_notas()
+    texto = re.sub(r"\[\[([^\]]+)\]\]",
+                   lambda m: nombres.get(_normal(m.group(1).strip()), f"`{m.group(1)}`"), texto)
     texto = re.sub(r"\*\*(.+?)\*\*", r"*\1*", texto)
     texto = re.sub(r"(?m)^#{1,6}\s+(.+)$", r"*\1*", texto)
     return texto
