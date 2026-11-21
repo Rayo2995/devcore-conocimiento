@@ -487,7 +487,9 @@ def respuesta_formato(f, inicio="Para esto se usa el"):
 FILA_SEP = re.compile(r"^\s*\|?\s*:?-{3,}")
 
 
-INICIO_BLOQUE = re.compile(r"^\s*([-*+]\s|\d+[.)]\s|#|\||>|```|\*\*.*\*\*\s*$)")
+# Líneas que empiezan un bloque propio: listas, títulos, tablas, código y etiquetas en
+# negrita como "*Plazo:*" (las fichas de formato), que no deben unirse a la línea anterior.
+INICIO_BLOQUE = re.compile(r"^\s*([-*+•]\s|\d+[.)]\s|#|\||>|```|\*\*.*\*\*\s*$|\*[^*\s][^*]*:\*|_)")
 
 
 def _desenvolver(texto):
