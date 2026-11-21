@@ -15,11 +15,16 @@ def _git(*args):
                           capture_output=True, text=True, check=True).stdout.strip()
 
 
+# Cambia este número cuando cambie la forma de leer o fragmentar las notas:
+# el bot reconstruye el índice solo al arrancar.
+VERSION_INDICE = "3"
+
+
 def commit_actual():
     try:
-        return _git("rev-parse", "HEAD")
+        return f"{_git('rev-parse', 'HEAD')}:{VERSION_INDICE}"
     except (subprocess.CalledProcessError, FileNotFoundError):
-        return "sin-git"
+        return f"sin-git:{VERSION_INDICE}"
 
 
 def sincronizar():
