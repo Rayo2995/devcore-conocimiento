@@ -4,7 +4,7 @@ id: MOC-007
 titulo: MOC Talento Humano
 estado: vigente
 fecha_creacion: 2026-11-18
-ultima_revision: 2026-11-18
+ultima_revision: 2026-11-21
 responsable: Grupo de Talento Humano
 servicios: [talento-humano]
 etiquetas: [moc, talento-humano, formatos]
@@ -22,10 +22,12 @@ Formatos del proceso de Talento Humano. GTH-FT-029 es un formato real de la Agen
 | Si necesitas... | Usa |
 |---|---|
 | Pedir tus vacaciones | [[gth-ft-028-solicitud-de-vacaciones]] |
+| Entregar tu puesto antes de salir a vacaciones y recibirlo al regreso | [[gth-ft-027-Entrega-Puesto-Trabajo-Periodo-Vacaciones]] |
 | Mover vacaciones ya concedidas, o interrumpirlas por incapacidad, comisión o luto | [[gth-ft-029-aplazamiento-o-interrupcion-de-vacaciones]] |
 
 ## Documentos
 
+- [[gth-ft-027-Entrega-Puesto-Trabajo-Periodo-Vacaciones]]: GTH-FT-027, versión 2.
 - [[gth-ft-028-solicitud-de-vacaciones]]: GTH-FT-028, versión 3.
 - [[gth-ft-029-aplazamiento-o-interrupcion-de-vacaciones]]: GTH-FT-029, versión 2.
 
