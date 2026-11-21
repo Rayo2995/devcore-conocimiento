@@ -23,14 +23,16 @@ SISTEMA = (
     "Eres DevBrain, el asistente de DevCore. Respondes en español usando ÚNICAMENTE las "
     "secciones de documentación que se te entregan.\n"
     "Reglas:\n"
-    "1. Responde en máximo 6 frases cortas, con datos que estén escritos en las secciones.\n"
+    "1. Responde la pregunta en 2 a 4 frases cortas, de corrido, sin repetir ideas.\n"
     "2. Si la respuesta es una lista o una tabla en el documento, cópiala completa y en el "
     "mismo orden. No agregues elementos, pasos, campos ni requisitos que no estén escritos.\n"
     "3. No uses conocimiento general sobre el tema: solo lo que dicen las secciones.\n"
-    "4. Si el dato que se pregunta (un número, un plazo, un nombre) no está escrito en las "
+    "4. No hables de los metadatos (responsable, estado, servicios) salvo que la pregunta los pida.\n"
+    "5. Si el dato que se pregunta (un número, un plazo, un nombre) no está escrito en las "
     "secciones, responde exactamente: 'No encontré documentación que responda esto.'\n"
-    "5. Si una sección dice 'pendiente' o 'por completar', dilo explícitamente.\n"
-    "6. Menciona el código del documento (por ejemplo GAD-FT-003 o GCO-PR-008) cuando lo tenga."
+    "6. Si una sección dice 'pendiente' o 'por completar', dilo explícitamente.\n"
+    "7. No pongas citas entre paréntesis después de cada frase: las fuentes se agregan aparte. "
+    "Puedes nombrar el código del documento (por ejemplo ADR-0001) una sola vez."
 )
 
 NO_ENCONTRE = "no encontré documentación"
@@ -594,7 +596,9 @@ def contexto_para_modelo(pregunta, candidatos, docs):
             partes.append(pedazo)
             usado += len(pedazo)
         meta = meta_de(f["ruta"])
-        datos = [f"responsable: {meta['responsable']}"] if meta.get("responsable") else []
+        sin_valor = {"", "por definir", "pendiente", "n/a", "na"}
+        datos = ([f"responsable: {meta['responsable']}"]
+                 if str(meta.get("responsable", "")).strip().lower() not in sin_valor else [])
         if meta.get("servicios"):
             serv = meta["servicios"]
             datos.append(f"servicios: {', '.join(serv) if isinstance(serv, list) else serv}")
@@ -604,6 +608,19 @@ def contexto_para_modelo(pregunta, candidatos, docs):
         if usado >= MAX_CONTEXTO:
             break
     return "\n\n=====\n\n".join(bloques), elegidos
+
+
+def limpiar_citas(texto):
+    """Quita citas "(ADR-0001)" repetidas al final de las frases y une frases sueltas."""
+    cita = r"\s*\((?:[A-Z]{2,4}-[A-Z0-9-]+(?:,\s*)?)+[^)]{0,80}\)"
+    if len(re.findall(cita, texto)) > 1:
+        texto = re.sub(cita + r"(?=\s*[.\n]|\s*$)", "", texto)
+    # Párrafos de una sola frase -> un solo párrafo (las listas y tablas se respetan).
+    bloques = [b.strip() for b in re.split(r"\n\s*\n", texto) if b.strip()]
+    if len(bloques) > 1 and all("\n" not in b and not re.match(r"^([-*•|]|\d+[.)])", b)
+                                for b in bloques):
+        texto = " ".join(bloques)
+    return re.sub(r"\s+\.", ".", texto).strip()
 
 
 def responder(pregunta):
@@ -644,6 +661,7 @@ def responder(pregunta):
     texto = llm.chat(SISTEMA, f"Secciones de documentación:\n\n{contexto}\n\nPregunta: {pregunta}",
                      num_ctx=max(config.CHAT_CTX, 6144))
     texto = re.sub(r"^\s*\[[^\]\n]*\|[^\]\n]*\]\s*", "", texto).strip()  # encabezado interno copiado
+    texto = limpiar_citas(texto)
 
     if NO_ENCONTRE in texto.lower():
         if es_formato:
